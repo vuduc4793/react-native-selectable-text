@@ -25,7 +25,7 @@
     RCTUITextView *_backedTextInputView;
 }
 
-NSString *const CUSTOM_SELECTOR = @"_CUSTOM_SELECTOR_";
+NSString *const CUSTOM_TEXT_SELECTOR = @"_CUSTOM_TEXT_SELECTOR_";
 
 UITextPosition *selectionStart;
 UITextPosition* beginning;
@@ -98,7 +98,7 @@ UITextPosition* beginning;
     NSMutableArray *menuControllerItems = [NSMutableArray arrayWithCapacity:self.menuItems.count];
     
     for(NSString *menuItemName in self.menuItems) {
-        NSString *sel = [NSString stringWithFormat:@"%@%@", CUSTOM_SELECTOR, menuItemName];
+        NSString *sel = [NSString stringWithFormat:@"%@%@", CUSTOM_TEXT_SELECTOR, menuItemName];
         UIMenuItem *item = [[UIMenuItem alloc] initWithTitle: menuItemName
                                                       action: NSSelectorFromString(sel)];
         
@@ -220,7 +220,7 @@ UITextPosition* beginning;
 - (void)forwardInvocation:(NSInvocation *)invocation
 {
     NSString *sel = NSStringFromSelector([invocation selector]);
-    NSRange match = [sel rangeOfString:CUSTOM_SELECTOR];
+    NSRange match = [sel rangeOfString:CUSTOM_TEXT_SELECTOR];
     if (match.location == 0) {
         [self tappedMenuItem:[sel substringFromIndex:17]];
     } else {
@@ -237,7 +237,7 @@ UITextPosition* beginning;
 {
     if(selectionStart != nil) {return NO;}
     NSString *sel = NSStringFromSelector(action);
-    NSRange match = [sel rangeOfString:CUSTOM_SELECTOR];
+    NSRange match = [sel rangeOfString:CUSTOM_TEXT_SELECTOR];
 
     if (match.location == 0) {
         return YES;
